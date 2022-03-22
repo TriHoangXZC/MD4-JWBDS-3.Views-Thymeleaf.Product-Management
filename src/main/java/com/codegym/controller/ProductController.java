@@ -4,10 +4,7 @@ import com.codegym.model.Product;
 import com.codegym.service.IProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
@@ -18,9 +15,12 @@ public class ProductController {
     private IProductService productService;
 
     @GetMapping("/products/list")
-    public ModelAndView showProductList() {
+    public ModelAndView showProductList(@RequestParam (name = "q", required = false) String q) {
         ModelAndView modelAndView = new ModelAndView("/product/list");
         List<Product> products = productService.displayAll();
+        if (q != null) {
+            products = productService.searchProduct(q);
+        }
         modelAndView.addObject("products", products);
         return modelAndView;
     }

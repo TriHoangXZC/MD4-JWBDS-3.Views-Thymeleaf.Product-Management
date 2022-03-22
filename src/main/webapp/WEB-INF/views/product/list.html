@@ -13,6 +13,12 @@
 <div>
     <a th:href="@{/products/create}">Create new product</a>
 </div>
+<div>
+    <form th:action="@{/products/list}">
+        <input type="text" name="q">
+        <button>Search</button>
+    </form>
+</div>
 <table>
     <tr>
         <td>Id</td>

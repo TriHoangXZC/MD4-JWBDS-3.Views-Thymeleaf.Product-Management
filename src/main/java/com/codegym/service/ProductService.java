@@ -4,6 +4,7 @@ import com.codegym.model.Product;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 public class ProductService implements IProductService{
     private static final List<Product> products = new ArrayList<>();
@@ -56,5 +57,16 @@ public class ProductService implements IProductService{
     public void deleteProductById(int id) {
         int index = findIndexById(id);
         products.remove(index);
+    }
+
+    @Override
+    public List<Product> searchProduct(String q) {
+        List<Product> products1 = new ArrayList<>();
+        for (int i = 0; i < products.size(); i++) {
+            if (products.get(i).getName().toLowerCase().contains(q)) {
+                products1.add(products.get(i));
+            }
+        }
+        return products1;
     }
 }
